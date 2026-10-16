@@ -2,6 +2,7 @@ package biblioteca.biblioteca.Model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,7 +30,8 @@ public class Autor {
     @JsonProperty("nacionalidade")
     private String nacionalidade;
 
-    @OneToMany(targetEntity = Livro.class)
+    @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnoreProperties("autor")
     private List<Livro> livros;
 
 }

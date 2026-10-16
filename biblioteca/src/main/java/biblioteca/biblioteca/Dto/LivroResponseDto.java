@@ -27,4 +27,7 @@ public class LivroResponseDto {
 
     @JsonProperty("edicaoLivro")
     private int edicaoLivro;
+
+    @JsonProperty("autor")
+    private AutorResponseDto autor;
 }

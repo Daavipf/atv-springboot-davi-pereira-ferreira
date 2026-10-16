@@ -1,5 +1,6 @@
 package biblioteca.biblioteca.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,6 +36,8 @@ public class Livro {
     @JsonProperty("edicaoLivro")
     private int edicaoLivro;
 
-    @OneToOne(targetEntity = Autor.class)
-    private Long autorId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "autor_id", nullable = false)
+    @JsonIgnoreProperties("livros")
+    private Autor autor;
 }
