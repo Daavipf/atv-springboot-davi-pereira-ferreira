@@ -3,6 +3,7 @@ package biblioteca.biblioteca.Controller;
 import biblioteca.biblioteca.Dto.LivroPostPutDto;
 import biblioteca.biblioteca.Dto.LivroResponseDto;
 import biblioteca.biblioteca.Service.LivroCrudService;
+import biblioteca.biblioteca.Service.LivroSearchService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,9 @@ public class LivroV1Controller {
 
     @Autowired
     LivroCrudService livroCrudService;
+
+    @Autowired
+    LivroSearchService livroSearchService;
 
     @PostMapping("")
     public ResponseEntity<LivroResponseDto> criarLivro(
@@ -56,5 +60,13 @@ public class LivroV1Controller {
         return ResponseEntity
                 .status(HttpStatus.NO_CONTENT)
                 .build();
+    }
+
+    @GetMapping("/buscar")
+    public ResponseEntity<List<LivroResponseDto>> buscar(@RequestParam("termo") String termo) {
+        List<LivroResponseDto> livros = livroSearchService.buscar(termo);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(livros);
     }
 }
