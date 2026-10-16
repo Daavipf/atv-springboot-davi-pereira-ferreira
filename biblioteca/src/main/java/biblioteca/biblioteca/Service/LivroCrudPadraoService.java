@@ -28,11 +28,10 @@ public class LivroCrudPadraoService implements LivroCrudService {
 
     @Override
     public LivroResponseDto criarLivro(LivroPostPutDto livroPostPutDto) {
-        Autor autor = buscarAutorExistente(livroPostPutDto.getAutorId());
+        Autor autor = buscarAutorExistente(livroPostPutDto.getAutor());
 
         Livro livro = modelMapper.map(livroPostPutDto, Livro.class);
         livro.setAutor(autor);
-        livro.setId(null);
 
         return modelMapper.map(livroRepository.save(livro), LivroResponseDto.class);
     }
@@ -53,7 +52,7 @@ public class LivroCrudPadraoService implements LivroCrudService {
     @Override
     public LivroResponseDto atualizarLivro(Long id, LivroPostPutDto livroPostPutDto) {
         Livro livro = obterLivroExistente(id);
-        Autor autor = buscarAutorExistente(livroPostPutDto.getAutorId());
+        Autor autor = buscarAutorExistente(livroPostPutDto.getAutor());
 
         livro.setTituloLivro(livroPostPutDto.getTituloLivro());
         livro.setIsbnLivro(livroPostPutDto.getIsbnLivro());
